@@ -1,5 +1,5 @@
 import { Container } from '@material-ui/core';
-import PhotoContainer from 'components/photo/PhotoContainer';
+import PhotoContainer from 'components/photos/PhotoContainer';
 import React from 'react';
 
 interface IPhotoProps {

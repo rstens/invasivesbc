@@ -10,7 +10,7 @@ import {
 import { ExpandMore } from '@material-ui/icons';
 import FormContainer from 'components/form/FormContainer';
 import MapContainer from 'components/map/MapContainer';
-import PhotoContainer from 'components/photo/PhotoContainer';
+import PhotoContainer from 'components/photos/PhotoContainer';
 import { DatabaseContext } from 'contexts/DatabaseContext';
 import React, { useContext, useEffect, useState } from 'react';
 
@@ -82,7 +82,7 @@ const ActivityPage: React.FC<IActivityPageProps> = (props) => {
           <Typography className={classes.heading}>Photos</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <PhotoContainer {...props} activity={doc} />
+          <PhotoContainer {...props}  />
         </AccordionDetails>
       </Accordion>
     </Container>

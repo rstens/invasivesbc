@@ -1,5 +1,5 @@
 import { AppBar, makeStyles, Tab, Tabs, Theme } from '@material-ui/core';
-import { Assignment, Explore, HomeWork, Map } from '@material-ui/icons';
+import { Assignment, Explore, HomeWork, Map, PhotoCamera } from '@material-ui/icons';
 import React, { useCallback, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
@@ -28,6 +28,8 @@ const TabsContainer: React.FC<IBaseProps> = (props) => {
           return 2;
         case '/home/activity':
           return 3;
+        case '/home/photos':
+          return 4;
         default:
           return activeTab;
       }
@@ -63,6 +65,7 @@ const TabsContainer: React.FC<IBaseProps> = (props) => {
             onClick={() => history.push('/home/activity')}
             {...a11yProps(3)}
           />
+          <Tab label="My photos" icon={<PhotoCamera />} onClick={() => history.push('/home/photos')} {...a11yProps(3)} />
         </Tabs>
       </AppBar>
     </div>

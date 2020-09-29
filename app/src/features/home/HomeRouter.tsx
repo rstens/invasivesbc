@@ -6,6 +6,7 @@ import PrivateRoute from 'utils/PrivateRoute';
 import ActivityPage from './activity/ActivityPage';
 import HomeLayout from './HomeLayout';
 import PlanPage from './plan/PlanPage';
+import PhotoPage from './photos/PhotoPage'
 
 interface IHomeRouterProps {
   classes: any;
@@ -19,6 +20,7 @@ const HomeRouter: React.FC<IHomeRouterProps> = (props) => {
       <PrivateRoute layout={HomeLayout} path="/home/activities" component={ActivitiesPage} componentProps={props} />
       <PrivateRoute layout={HomeLayout} path="/home/map" component={MapPage} componentProps={props} />
       <PrivateRoute layout={HomeLayout} path="/home/activity" component={ActivityPage} componentProps={props} />
+      <PrivateRoute layout={HomeLayout} path="/home/photos" component={PhotoPage} componentProps={props} />
     </Switch>
   );
 };
