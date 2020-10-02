@@ -33,6 +33,17 @@ const MapContainer: React.FC<IMapContainerProps> = (props) => {
     });
   };
 
+  /* ## saveExtent
+    Save the map Extent within the database
+    @param doc {object} The activity data object
+    @param extent {object} The leaflet bounds object
+   */
+  const saveExtent = async (doc: any, extent: any) => {
+    await databaseContext.database.upsert(doc._id, (activityDoc) => {
+      return { ...activityDoc, mapExtent: extent };
+    });
+  };
+
   useEffect(() => {
     if(props && geo)
     {
@@ -116,8 +127,11 @@ const MapContainer: React.FC<IMapContainerProps> = (props) => {
         });
     }
 
+    // TODO: Adjust to last bounds
+
     const saveExtent = function (event) {
-      console.log(event);
+      console.log(map.getBounds());
+      // map.fitBounds();
     };
 
     map.on('moveend',saveExtent);
