@@ -99,7 +99,7 @@ const MapContainer: React.FC<IMapContainerProps> = (props) => {
 
     L.control.layers(baseLayers).addTo(map);
 
-    //load last poly
+    // load last poly
     if(props.activity && props.activity.geometry)
     {
         const style = {
@@ -116,7 +116,11 @@ const MapContainer: React.FC<IMapContainerProps> = (props) => {
         });
     }
 
+    const saveExtent = function (event) {
+      console.log(event);
+    };
 
+    map.on('moveend',saveExtent);
 
     map.on('draw:created', (feature) => {
       let aGeo = feature.layer.toGeoJSON()
