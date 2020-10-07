@@ -1,0 +1,45 @@
+name: Deploy iOS to App Center
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: macOS-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Ionic
+        run: |
+          npm install -g @ionic/cli
+
+      - name: Install Application modules
+        working-directory: ./app
+        env:
+          CI: true
+        run: npm install
+
+      - name: Build App
+        working-directory: ./app
+        env:
+          CI: ""
+        run: |
+           ionic capacitor add ios
+            ionic capacitor build ios --prod
+
+      - name: Install gpg
+        run: brew install gnupg
+
+      - name: Install Ionic CLI
