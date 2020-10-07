@@ -44,8 +44,8 @@ jobs:
       - name: Cache Pods dependencies
         uses: actions/cache@v1
         with:
-          path: app/ios/App/Pods
-          key: ${{ runner.OS }}-pods-cache-${{ hashFiles('App/ios/App/Podfile.lock') }}
+          path: ./app/ios/App/Pods
+          key: ${{ runner.OS }}-pods-cache-${{ hashFiles('**/app/ios/App/Podfile.lock') }}
           restore-keys: |
             ${{ runner.OS }}-pods-cache-
 
