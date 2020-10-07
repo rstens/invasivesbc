@@ -42,4 +42,3 @@ jobs:
       - name: Install gpg
         run: brew install gnupg
 
-      - name: Install Ionic CLI
