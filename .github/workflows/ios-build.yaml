@@ -37,6 +37,7 @@ jobs:
       - name: Install Ionic
         run: |
           npm install -g @ionic/cli
+          npm install appcenter-cli@2.3.3
 
       - name: Install Application modules
         working-directory: ./app
@@ -66,17 +67,28 @@ jobs:
         run: ./.github/secrets/decrypt_secrets.sh
         env:
           IOS_PROFILE_KEY: ${{ secrets.IOS_PROFILE_KEY }}
-          CLIENT_CERTIFICATE: ${{ secrets.CLIENT_CERTIFICATE }}
 
       - name: Build app
         working-directory: ./app/ios/App
         run: |
-          cd ios && xcodebuild archive \
+          cd xcodebuild archive \
             -workspace App.xcworkspace \
             -scheme App \
             -sdk iphoneos \
             -configuration Release \
             -archivePath $PWD/build/App.xcarchive \
             IPHONEOS_DEPLOYMENT_TARGET=9.0
-            PROVISIONING_PROFILE="6acc2ab9-46f4-4551-b1a5-5cf6a0c2cc49" \
+            PROVISIONING_PROFILE="InvasivesBC" \
             CODE_SIGN_IDENTITY="BCGov"
+
+      - name: Export app
+        working-directory: ./app/ios/App
+        run: |
+          cd xcodebuild \
+            -exportArchive \
+            -archivePath $PWD/build/appname.xcarchive \
+            -exportOptionsPlist $PWD/ci.plist \
+            -exportPath $PWD/build
+      - name: Deploy to App Center
+        run: |
+          npx appcenter distribute release --token "${{secrets.APP_CENTER_TOKEN}}" --app "apporg/appname" --group "group-name" --file "ios/build/appname.ipa" --release-notes "$(git log -1 --pretty=format:%s)" --debug
