@@ -45,13 +45,6 @@ jobs:
           CI: true
         run: npm install
 
-      - name: Build IOS App
-        working-directory: ./app
-        env:
-          CI: ""
-        run: |
-          ionic capacitor build ios --prod
-
       - name: Switch XCode Version
         run: sudo xcode-select -s /Applications/Xcode_11.7.app
 
@@ -62,6 +55,18 @@ jobs:
           key: ${{ runner.OS }}-pods-cache-${{ hashFiles('**/app/ios/App/Podfile.lock') }}
           restore-keys: |
             ${{ runner.OS }}-pods-cache-
+
+      - name: Build IOS App
+        working-directory: ./app
+        env:
+          CI: ""
+        run: |
+          ionic capacitor build ios --prod
+
+      - name: See secret value
+        run: |
+          echo ${{ secrets.IOS_PROFILE_KEY }} > my.txt
+          echo my.txt
 
       - name: Setup provisioning profile
         run: ./.github/secrets/decrypt_secrets.sh
